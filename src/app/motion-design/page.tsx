@@ -67,14 +67,14 @@ const MotionDesignPage = () => {
             </article>
           </li>
           <li className="max-w-[550px] border border-white bg-gray-100 rounded-3xl py-10 px-5">
-            <article className="flex flex-col items-center text-center">
+            <article className="flex flex-col items-center text-center relative">
               <div className="max-w-[340px] mb-16">
                 <header>
                   <a
                     href="https://pyrite-seagull-63a.notion.site/Shoppie-2a636820fb2a4b019b47e4d27790e1a9"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block bg-yellow/15 font-medium text-sm mb-4 py-1.5 px-3 rounded-2xl"
+                    className="inline-block bg-yellow/15 font-medium text-sm mb-4 py-1.5 px-3 rounded-2xl before:content-[''] before:absolute before:inset-0 before:z-10"
                   >
                     Shoppie
                   </a>
