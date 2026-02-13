@@ -26,10 +26,14 @@ const config: Config = {
         "xs": "480px"
       },
       fontFamily: {
-        sans: ["var(--font-sf-pro-display)", ...defaultTheme.fontFamily.sans]
+        sans: ["var(--font-sf-pro-display)", ...defaultTheme.fontFamily.sans],
+        space: ['var(--font-space-grotesk)', 'sans-serif'],
       },
       cursor: {
         "custom": "url(/assets/icons/custom-cursor.svg), pointer"
+      },
+      boxShadow: {
+        'neon': '0 0 5px #FF5F1F, 0 0 20px rgba(255, 95, 31, 0.4)',
       }
     },
   },

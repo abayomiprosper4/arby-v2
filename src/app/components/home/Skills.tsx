@@ -1,63 +1,105 @@
-"use client"
+"use client";
 
 import Link from "next/link";
+import { motion, Variants } from "framer-motion";
 
-import { useState } from "react";
-
-type KeysInSkills = "product-design" | "facilitation" | "motion-design" | "blog";
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeInOut", delay: 0.8 },
+  },
+};
 
 const SkillsSection = () => {
+  return (
+    <section className="font-space flex flex-col justify-center items-center py-10 px-4 md:px-0">
+      <motion.div
+        className="w-full max-w-6xl flex flex-col gap-16 md:gap-12"
+        initial="hidden"
+        animate="show"
+        variants={{
+          hidden: {},
+          show: {
+            transition: {
+              staggerChildren: 0.3,
+            },
+          },
+        }}
+      >
+        <motion.div
+          variants={fadeInUp}
+          className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 w-full"
+        >
+          <div className="relative group w-fit">
+            <div className="hidden md:block absolute top-0 right-3 w-1.5 h-full bg-[#FF5F1F] z-0 transition-all duration-300 ease-out group-hover:translate-x-8"></div>
 
-    const skills: Record<KeysInSkills, string> = {
-        "product-design": "I am a product designer with 3 years of professional work experience from creating visually aesthetically pleasing designs my goal is to ensure that i am able to provide the best user experience for users and ensure business growth.",
-        "facilitation": "I am a self taught design thinking facilitator with over a year of professional experience.",
-        "motion-design": "I will call myself a beginner motion designer with over a year of experience. My passion for motion design stems from the fact that I love animation. This is the reason I ventured into motion design in order to make my designs stand out.",
-        "blog": "I am a freelance writer dedicated to writing blogs and articles on UI/UX and any other thing I find interesting things. I see writing as a way of giving back to the community. I constantly blog on Hashnode."
-    };
+            <Link href="/product-design">
+              <button className="relative z-10 bg-[#1a1e20] border border-white/20 hover:border-white/50 text-white text-lg md:text-xl lg:text-2xl rounded-lg py-5 px-6 md:py-9 md:px-14 whitespace-normal md:whitespace-nowrap hover:shadow-neon transition-all duration-500 w-full md:w-fit">
+                Product Design
+              </button>
+            </Link>
+          </div>
+          <div className="flex gap-4 items-stretch">
+            <div className="block md:hidden w-1.5 bg-[#FF5F1F] flex-shrink-0"></div>
 
-    const [description, setDescription] = useState<KeysInSkills>("product-design");
+            <p className="text-gray-400 tracking-wider font-light text-lg md:text-xl leading-relaxed max-w-xl">
+              I am a product designer with 5 years of professional work
+              experience from creating visually aesthetically pleasing designs.
+              My goal is...
+            </p>
+          </div>
+        </motion.div>
 
-    return (
-        <section>
-            <ul className="text-2xl overflow-x-auto flex justify-between gap-4 my-20">
-                <li>
-                    <button
-                        onClick={() => setDescription("product-design")}
-                        className="cursor-custom italic font-light border-2 border-[transparent] hover:border-gray-300 rounded-2xl py-8 px-4 whitespace-nowrap"
-                    >Product Designer</button>
-                </li>
-                <li>
-                    <button
-                        onClick={() => setDescription("facilitation")}
-                        className="cursor-custom italic font-light border-2 border-[transparent] hover:border-gray-300 rounded-2xl py-8 px-4 whitespace-nowrap"
-                    >Design Thinking Facilitator</button>
-                </li>
-                <li>
-                    <button
-                        onClick={() => setDescription("motion-design")}
-                        className="cursor-custom italic font-light border-2 border-[transparent] hover:border-gray-300 rounded-2xl py-8 px-4 whitespace-nowrap"
-                    >Motion Designer</button>
-                </li>
-                <li>
-                    <button
-                        onClick={() => setDescription("blog")}
-                        className="cursor-custom italic font-light border-2 border-[transparent] hover:border-gray-300 rounded-2xl py-8 px-4 whitespace-nowrap"
-                    >Writer</button>
-                </li>
-            </ul>
-            <div
-                className="group relative border-l-[5px] border-orange p-1 pl-5 text-xl leading-8 text-gray-700 mb-28"
-            >
-                <p>{skills[description]}</p>
-                <Link
-                    href={`/${description}`}
-                    // className="hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-orange text-white font-medium group-hover:grid place-items-center w-[143px] h-[143px] rounded-full"
-                    className="block underline mt-2 md:hidden md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:bg-orange md:text-white md:no-underline md:font-medium md:group-hover:grid md:place-items-center md:w-[143px] md:h-[143px] md:rounded-full"
-                >Dive in</Link>
-            </div>
-        </section>
-    )
+        <motion.div
+          variants={fadeInUp}
+          className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 w-full"
+        >
+          <div className="relative group w-fit">
+            <div className="hidden md:block absolute top-0 right-3 w-1.5 h-full bg-[#FF5F1F] z-0 transition-all duration-500 ease-out group-hover:translate-x-8"></div>
 
-}
+            <Link href="/facilitation">
+              <button className="relative z-10 bg-[#1a1e20] border border-white/20 hover:border-white/50 text-white text-lg md:text-xl lg:text-2xl rounded-lg py-5 px-6 md:py-9 md:px-14 whitespace-normal md:whitespace-nowrap hover:shadow-neon transition-all duration-500 w-full md:w-fit">
+                Design Thinking Facilitation
+              </button>
+            </Link>
+          </div>
+
+          <div className="flex gap-4 items-stretch">
+            <div className="block md:hidden w-1.5 bg-[#FF5F1F] flex-shrink-0"></div>
+            <p className="text-gray-400 tracking-wider font-light text-lg md:text-xl leading-relaxed max-w-xl">
+              I am a self taught design thinking facilitator with over 3 years
+              of professional experience.
+            </p>
+          </div>
+        </motion.div>
+
+        <motion.div
+          variants={fadeInUp}
+          className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 w-full"
+        >
+          <div className="relative group w-fit">
+            <div className="hidden md:block absolute top-0 right-3 w-1.5 h-full bg-[#FF5F1F] z-0 transition-all duration-300 ease-out group-hover:translate-x-8"></div>
+
+            <Link href="/motion-design">
+              <button className="relative z-10 bg-[#1a1e20] border border-white/20 hover:border-white/50 text-white text-lg md:text-xl lg:text-2xl rounded-lg py-5 px-6 md:py-9 md:px-14 whitespace-normal md:whitespace-nowrap hover:shadow-neon transition-all duration-500 w-full md:w-fit">
+                Motion Design
+              </button>
+            </Link>
+          </div>
+
+          <div className="flex gap-4 items-stretch">
+            <div className="block md:hidden w-1.5 bg-[#FF5F1F] flex-shrink-0"></div>
+            <p className="text-gray-400 tracking-wider font-light text-lg md:text-xl leading-relaxed max-w-xl">
+              Motion designer with 2 years of experience creating purposeful
+              animations that bring digital products and ideas to life.
+            </p>
+          </div>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+};
 
 export default SkillsSection;
