@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { FaVolumeUp } from "react-icons/fa";
 import { motion, Variants } from "framer-motion";
+import { useEffect } from "react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
@@ -12,168 +12,209 @@ const fadeInUp: Variants = {
     transition: { duration: 0.6, ease: "easeInOut", delay: 0.2 },
   },
 };
+type Theme = "dark" | "light";
 
-const Introduction = () => {
-  // Intro lines state
-  const [line1, setLine1] = useState("");
-  const [line2, setLine2] = useState("");
-  const [line3, setLine3] = useState("");
-
-  // Rotating skills state
-  const [skillText, setSkillText] = useState("");
-  const [skillIndex, setSkillIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [introFinished, setIntroFinished] = useState(false);
-
-  const lines = [
-    "I am Abisola Jegede,",
-    "a Jack of all trades",
-    "and master of ",
-  ];
-  const skills = [
-    "Product Design",
-    "Design Thinking Facilitation",
-    "Motion Design",
-  ];
-
+interface IntroductionProps {
+  theme: Theme;
+}
+const Introduction = ({ theme }: IntroductionProps) => {
   useEffect(() => {
-    const typeLine = async (text: string, setter: (val: string) => void) => {
-      for (let i = 0; i <= text.length; i++) {
-        setter(text.slice(0, i));
-        await new Promise((resolve) => setTimeout(resolve, 80));
-      }
-    };
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
-    const runSequence = async () => {
-      await typeLine(lines[0], setLine1);
-      await typeLine(lines[1], setLine2);
-      await typeLine(lines[2], setLine3);
-      setIntroFinished(true);
-    };
+  const isDark = theme === "dark";
 
-    runSequence();
-  }, []);
-
-  useEffect(() => {
-    if (!introFinished) return;
-
-    const currentSkill = skills[skillIndex];
-    const typingSpeed = isDeleting ? 50 : 120;
-
-    const timeout = setTimeout(() => {
-      if (!isDeleting && skillText === currentSkill) {
-        setTimeout(() => setIsDeleting(true), 2000);
-      } else if (isDeleting && skillText === "") {
-        setIsDeleting(false);
-        setSkillIndex((prev) => (prev + 1) % skills.length);
-      } else {
-        setSkillText(
-          isDeleting
-            ? currentSkill.slice(0, skillText.length - 1)
-            : currentSkill.slice(0, skillText.length + 1),
-        );
-      }
-    }, typingSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [skillText, isDeleting, skillIndex, introFinished]);
-
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const playPronunciation = () => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio("/assets/audio/ah-bi-soh-lah.mp4");
-      audioRef.current.addEventListener("ended", () => {
-        setIsPlaying(false);
-      });
-    }
-    audioRef.current.currentTime = 0;
-    audioRef.current.play();
-
-    setIsPlaying(true);
-  };
-
-  const Cursor = () => (
-    <motion.span
-      animate={{ opacity: [0, 1, 0] }}
-      transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-      className="inline-block ml-1 w-[3px] h-[0.8em] bg-[#FF5F1F] translate-y-1"
-    />
-  );
+  const border = isDark ? "border-white/10" : "border-black/10";
+  const secondaryBg = isDark ? "bg-[#111111]" : "bg-[#FFFFFF]";
+  const accent = "#FF6A2A";
+  const subtle = isDark ? "text-[#A0A0A0]" : "text-[#555555]";
 
   return (
-    <motion.section
-      variants={fadeInUp}
-      initial="hidden"
-      animate="show"
-      className="mb-10 mt-20 mx-16 flex flex-col gap-4 lg:flex-row lg:justify-between items-start"
-    >
-      <div className="block lg:text-[2.8rem] md:text-[2.5rem] sm:text-[2.5rem] text-[1.6rem] tracking-wide font-normal font-space text-white/80 mb-4 leading-[1.2]">
-        <div className="min-h-[1.2em]">
-          {line1}
-          {!line2 && <Cursor />}
-        </div>
+    <div className={isDark ? "text-[#EAEAEA]" : "text-[#1A1A1A]"}>
+      <motion.section
+        variants={fadeInUp}
+        initial="hidden"
+        animate="show"
+        className="mb-10 flex max-w-[93%] mx-auto"
+      >
+        <section className="relative min-h-screen overflow-hidden text-left px-6 pb-10 pt-32 sm:pt-36">
+          <div className="mx-auto block gap-5">
+            <div className="relative z-10">
+              <motion.div
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.7 }}
+                className={`mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] ${secondaryBg} ${border}`}
+                style={{ color: accent }}
+              >
+                <span
+                  className=" h-1.5 w-1.5 animate-pulse rounded-full"
+                  style={{ backgroundColor: accent }}
+                />
+                Available for new projects
+              </motion.div>
 
-        <div className="min-h-[1.2em]">
-          {line2}
-          {line2 && !line3 && <Cursor />}
-        </div>
+              <motion.h1
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                className="mb-6 max-w-6xl text-4xl font-bold leading-[1.05] tracking-[-0.04em] sm:text-5xl lg:text-6xl"
+              >
+                <div className="max-w-3xl">
+                  Product designer shaping
+                  <br />
+                  scalable digital products through{" "}
+                  <span className="relative" style={{ color: accent }}>
+                    strategy
+                    <span
+                      className="absolute bottom-1 left-0 right-0 -z-10 h-2 rounded-sm opacity-30"
+                      style={{ backgroundColor: accent }}
+                    />
+                  </span>
+                  ,{" "}
+                  <span className="relative" style={{ color: accent }}>
+                    systems
+                    <span
+                      className="absolute bottom-1 left-0 right-0 -z-10 h-2 rounded-sm opacity-30"
+                      style={{ backgroundColor: accent }}
+                    />
+                  </span>
+                  , and{" "}
+                  <span className="relative" style={{ color: accent }}>
+                    execution
+                    <span
+                      className="absolute bottom-1 left-0 right-0 -z-10 h-2 rounded-sm opacity-30"
+                      style={{ backgroundColor: accent }}
+                    />
+                  </span>
+                  .
+                </div>
+              </motion.h1>
 
-        <div className="min-h-[1.2em]">
-          <span>{line3}</span>
-          <span className="block sm:inline whitespace-nowrap">
-            <span className="text-[#FF5F1F] font-thin">{skillText}</span>
-            {line3 && <Cursor />}
-          </span>
-        </div>
-      </div>
+              <motion.p
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className={`reveal mb-10 max-w-[520px] text-lg leading-8 ${subtle}`}
+              >
+                I design and lead product experiences from idea to launch —
+                combining product thinking, design execution, and facilitation
+                to help teams build solutions that deliver real impact.
+              </motion.p>
 
-      <div className="lg:text-right">
-        <div className="text-[15px] flex items-center lg:justify-end my-2">
-          <span className="font-mono xs:text-sm sm:text-sm md:text-md lg:text-sm text-white/80">
-            Pronunciation
-          </span>
-          <button
-            onClick={playPronunciation}
-            aria-label="Play pronunciation"
-            className="relative ml-3 flex items-center justify-center text-xl text-white cursor-pointer"
-          >
-            {isPlaying && (
-              <motion.span
-                className="absolute rounded-full border border-[#FF5F1F]"
-                initial={{ scale: 1, opacity: 0.6 }}
-                animate={{ scale: 2.4, opacity: 0 }}
-                transition={{
-                  duration: 1.1,
-                  repeat: Infinity,
-                  ease: "easeOut",
-                }}
-                style={{
-                  width: 32,
-                  height: 32,
-                }}
-              />
-            )}
-
-            <motion.span
-              animate={{
-                scale: isPlaying ? 1.25 : 1,
-                color: isPlaying ? "#FF5F1F" : "#ffffff",
-              }}
-              transition={{ duration: 0.25 }}
-              className="absolute ml-2"
-            >
-              <FaVolumeUp />
-            </motion.span>
-          </button>
-        </div>
-        <span className="absolute font-thin text-2xl text-white block">
-          /Ah: bi: soh: la/
-        </span>
-      </div>
-    </motion.section>
+              <motion.div
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.7, delay: 0.3 }}
+                className="flex flex-col gap-4 sm:flex-row"
+              >
+                <a
+                  href="#work"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg px-7 py-3.5 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(255,106,42,0.3)] transition hover:-translate-y-0.5 hover:bg-[#E55A1F]"
+                  style={{ backgroundColor: accent }}
+                >
+                  View Portfolio <ArrowRight className="h-4 w-4" />
+                </a>
+                <a
+                  href="#"
+                  className={`inline-flex items-center justify-center gap-2 rounded-lg border px-7 py-3.5 text-sm font-semibold transition hover:-translate-y-0.5 hover:text-[#FF6A2A] ${border} ${isDark ? "text-[#EAEAEA] hover:border-[#FF6A2A]" : "text-[#1A1A1A] hover:border-[#FF6A2A]"}`}
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Download Resume
+                </a>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+      </motion.section>
+    </div>
   );
 };
 
 export default Introduction;
+
+function FloatingCard({
+  className,
+  delay,
+  isDark,
+  accent,
+  title,
+  subtitle,
+  badgeList,
+  progress,
+  avatar = "AJ",
+  avatarColor,
+}: {
+  className?: string;
+  delay: string;
+  isDark: boolean;
+  accent: string;
+  title: string;
+  subtitle: string;
+  badgeList: string[];
+  progress: number[];
+  avatar?: string;
+  avatarColor?: string;
+}) {
+  const card = isDark
+    ? "bg-[rgba(17,17,17,0.7)] border-white/8 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+    : "bg-[rgba(255,255,255,0.75)] border-black/5 shadow-[0_8px_32px_rgba(0,0,0,0.08)]";
+
+  return (
+    <div
+      className={`animate-[float_6s_ease-in-out_infinite] rounded-2xl border p-6 backdrop-blur-xl ${card} ${className ?? ""}`}
+      style={{ animationDelay: delay }}
+    >
+      <div className="mb-4 flex items-center gap-3">
+        <div
+          className="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-bold text-white"
+          style={{
+            background:
+              avatarColor ?? `linear-gradient(135deg, ${accent}, #FF8550)`,
+          }}
+        >
+          {avatar}
+        </div>
+        <div>
+          <h4 className="mb-0.5 text-sm font-semibold">{title}</h4>
+          <span className="text-xs text-[#666666]">{subtitle}</span>
+        </div>
+      </div>
+
+      {progress.map((value, index) => (
+        <div
+          key={index}
+          className={`mb-2 h-1.5 rounded-full ${isDark ? "bg-[#1A1A1A]" : "bg-[#F0F1F3]"}`}
+        >
+          <div
+            className="h-full rounded-full"
+            style={{
+              width: `${value}%`,
+              background: `linear-gradient(90deg, ${accent}, #FF8550)`,
+              boxShadow: `0 0 24px rgba(255, 106, 42, 0.15)`,
+            }}
+          />
+        </div>
+      ))}
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {badgeList.map((badge) => (
+          <span
+            key={badge}
+            className={`rounded-md px-2.5 py-1 text-[0.7rem] font-medium ${
+              isDark
+                ? "bg-[#1A1A1A] text-[#A0A0A0]"
+                : "bg-[#F0F1F3] text-[#666666]"
+            }`}
+          >
+            {badge}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}

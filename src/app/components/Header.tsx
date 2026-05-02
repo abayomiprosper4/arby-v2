@@ -1,53 +1,80 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion } from "framer-motion";
 
-const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const pathname = usePathname();
+import {
+  Moon,
+  SunMedium,
+  X,
+} from "lucide-react";
 
-  // Framer Motion scroll tracking
-  const { scrollY } = useScroll();
+type Theme = "dark" | "light";
 
-  /**
-   * Smart Scroll Logic: 
-   * If current scroll is greater than previous AND scrolled more than 150px, hide.
-   * If current scroll is less than previous, show.
-   */
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    if (latest > previous && latest > 150) {
-      setHidden(true);
-    } else {
-      setHidden(false);
-    }
-  });
+interface HeaderProps {
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+}
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+export default function Header({ theme, setTheme }: HeaderProps) {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isLightPage = pathname.toLowerCase().includes("spenditure") 
-  || pathname.toLowerCase().includes("nithub-forms") 
-  || pathname.toLowerCase().includes("transtura") 
-  || pathname.toLowerCase() === "/about";
+useEffect(() => {
+    const savedTheme = (localStorage.getItem("theme") as Theme | null) || "dark";
+    setTheme(savedTheme);
+  }, []);
 
-  const navLinks = [
-    { name: "Resume", href: "/Resume" },
-    { name: "Portfolio", href: "/portfolio" },
-    { name: "About", href: "/about" },
-    { name: "Blog", href: "/blog" },
-    { name: "Resources", href: "/resources" },
-    { name: "Playground", href: "/playground" },
-  ];
+useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
-  const textColor = isLightPage ? "text-gray-600" : "text-gray-400";
-  const activeTextColor = isLightPage ? "text-black" : "text-white";
-  const logoTextColor = isLightPage ? "text-black" : "text-white";
-  const contactBtnBg = isLightPage ? "bg-[#1a1a1a]" : "bg-[#782E14]";
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const revealEls = document.querySelectorAll<HTMLElement>(".reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("opacity-100", "translate-y-0");
+            entry.target.classList.remove("opacity-0", "translate-y-8");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    revealEls.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+
+  const isDark = theme === "dark";
+
+  const surface = isDark ? "bg-[#0B0B0B] text-[#EAEAEA]" : "bg-[#F8F9FB] text-[#1A1A1A]";
+  const subtle = isDark ? "text-[#A0A0A0]" : "text-[#555555]";
+  const border = isDark ? "border-white/10" : "border-black/10";
+  const secondaryBg = isDark ? "bg-[#111111]" : "bg-[#FFFFFF]";
+  const tertiaryBg = isDark ? "bg-[#1A1A1A]" : "bg-[#F0F1F3]";
+  const accent = "#FF6A2A";
+
 
   return (
     <motion.header 
@@ -55,131 +82,123 @@ const Header = () => {
         visible: { y: 0 },
         hidden: { y: "-100%" },
       }}
-      animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
-      className={`w-[95%] mx-auto font-space fixed top-0 left-0 right-0 z-[100] flex justify-between px-6 md:px-16 items-center py-6 transition-colors duration-300 ${
-        isLightPage ? "bg-white/80 backdrop-blur-md" : "bg-transparent"
-      }`}
+      className={`mx-auto font-space fixed top-0 left-0 right-0 z-[100] flex justify-between px-6 md:px-16 items-center py-6 transition-colors duration-300`}
     >
-      <h1 
-        className={`border-b-[3px] border-[#FF4C00] inline-block sm:text-md lg:text-2xl font-bold transition-colors duration-300 ${logoTextColor}`}
+            <nav
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          scrolled ? `${secondaryBg}/80 backdrop-blur-xl` : "bg-transparent"
+        }`}
       >
-        <Link href="/">Arby</Link>
-      </h1>
+        <div className="mx-auto flex max-w-[93%] items-center justify-between px-6 py-5">
+          <a
+            href="#top"
+            className={`text-xl font-bold tracking-tight transition-colors ${
+              isDark ? "text-[#EAEAEA] hover:text-[#FF6A2A]" : "text-[#1A1A1A] hover:text-[#FF6A2A]"
+            }`}
+          >
+            Abisola Jegede
+          </a>
 
-      <nav className="hidden md:block">
-        <ul className="flex gap-10 text-sm">
-          {navLinks.map((link) => {
-            const isActive = pathname.toLowerCase() === link.href.toLowerCase();
-
-            return (
-              <li
-                key={link.name}
-                className="relative flex flex-col items-center"
-              > 
-                <Link
-                  href={link.href}
-                  className={`transition-colors duration-300 font-medium ${
-                    isActive 
-                      ? "text-[#FF4C00]" 
-                      : `${textColor} hover:${activeTextColor}`
-                  }`}
+          <ul className="hidden items-center gap-8 md:flex">
+            {["work", "strategy", "facilitation", "about"].map((item) => (
+              <li key={item}>
+                <a
+                  href={`#${item}`}
+                  className={`${subtle} relative text-sm font-medium transition-colors hover:text-[var(--accent)]`}
+                  style={{ ["--accent" as never]: accent }}
                 >
-                  {link.name}
-                </Link>
-                {isActive && (
-                  <motion.span
-                    layoutId="activeDot"
-                    className="absolute -bottom-3 w-1.5 h-1.5 bg-[#FF4C00] rounded-full"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  {item[0].toUpperCase() + item.slice(1)}
+                  <span
+                    className="absolute -bottom-1 left-0 h-0.5 w-0 bg-[var(--accent)] transition-all duration-300 group-hover:w-full"
+                    style={{ ["--accent" as never]: accent }}
                   />
-                )}
+                </a>
               </li>
-            );
-          })}
-        </ul>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              aria-label="Toggle theme"
+              className={`relative hidden h-[26px] w-12 rounded-full ${tertiaryBg} p-[3px] transition hover:border-[var(--accent)] sm:flex`}
+            >
+              <span
+                className={`absolute left-[3px] top-[3px] flex h-5 w-5 items-center justify-center rounded-full text-white shadow-md transition-transform duration-500 ${
+                  isDark ? "translate-x-0" : "translate-x-[22px]"
+                }`}
+                style={{ backgroundColor: accent, boxShadow: `0 2px 8px rgba(255, 106, 42, 0.3)` }}
+              >
+                {isDark ? <Moon className="h-3 w-3" /> : <SunMedium className="h-3 w-3" />}
+              </span>
+            </button>
+
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(255,106,42,0.3)] transition hover:-translate-y-0.5 hover:bg-[#E55A1F]"
+              style={{ backgroundColor: accent }}
+            >
+              Contact Me
+            </a>
+
+            <button
+              type="button"
+              aria-label="Open menu"
+              onClick={() => setMobileOpen(true)}
+              className="inline-flex flex-col gap-1.5 p-1 md:hidden"
+            >
+              <span className={`h-0.5 w-6 ${isDark ? "bg-[#EAEAEA]" : "bg-[#1A1A1A]"}`} />
+              <span className={`h-0.5 w-6 ${isDark ? "bg-[#EAEAEA]" : "bg-[#1A1A1A]"}`} />
+              <span className={`h-0.5 w-6 ${isDark ? "bg-[#EAEAEA]" : "bg-[#1A1A1A]"}`} />
+            </button>
+          </div>
+        </div>
       </nav>
 
-      <div className="flex items-center gap-4">
-        <a
-          href="mailto:arby.jegede@gmail.com"
-          className={`hidden sm:block shadow-md text-white py-3 px-8 rounded-full hover:shadow-neon transition-all duration-300 ${contactBtnBg}`}
-        >
-          Contact me
-        </a>
-
+      <div
+        className={`fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 transition-opacity duration-300 md:hidden ${
+          mobileOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+        } ${surface}`}
+      >
         <button
-          onClick={toggleMenu}
-          className={`md:hidden p-2 z-[60] transition-colors ${isLightPage && !isOpen ? "text-black" : "text-white"}`}
-          aria-label="Toggle Menu"
+          type="button"
+          aria-label="Close menu"
+          onClick={() => setMobileOpen(false)}
+          className={`absolute right-6 top-6 rounded-full p-2 ${secondaryBg} ${border} border`}
         >
-          {isOpen ? <X size={32} /> : <Menu size={32} />}
+          <X className={`h-7 w-7 ${isDark ? "text-[#EAEAEA]" : "text-[#1A1A1A]"}`} />
         </button>
+
+        {["work", "strategy", "facilitation", "about", "contact"].map((item) => (
+          <a
+            key={item}
+            href={`#${item}`}
+            onClick={() => setMobileOpen(false)}
+            className={`text-2xl font-semibold tracking-tight transition-colors ${isDark ? "text-[#EAEAEA]" : "text-[#1A1A1A]"} hover:text-[#FF6A2A]`}
+          >
+            {item[0].toUpperCase() + item.slice(1)}
+          </a>
+        ))}
+
+        <a
+          href="#contact"
+          onClick={() => setMobileOpen(false)}
+          className="inline-flex items-center rounded-lg px-6 py-3 text-sm font-semibold text-white"
+          style={{ backgroundColor: accent }}
+        >
+          Contact Me
+        </a>
       </div>
-
-      {/* Mobile Navigation */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={toggleMenu}
-              className="fixed inset-0 bg-black/60 backdrop-blur-md z-[50]"
-            />
-
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-[70%] bg-[#151515] border-l border-white/10 p-10 pt-32 z-[55] shadow-2xl"
-            >
-              <ul className="flex flex-col gap-8 text-2xl text-gray-300">
-                {navLinks.map((link) => {
-                  const isActive = pathname.toLowerCase() === link.href.toLowerCase();
-
-                  return (
-                    <li
-                      key={link.name}
-                      className="relative flex items-center gap-4"
-                    >
-                      <Link
-                        href={link.href}
-                        onClick={toggleMenu}
-                        className={`transition-colors duration-300 ${
-                          isActive ? "text-[#FF4C00]" : "hover:text-white"
-                        }`}
-                      >
-                        {link.name}
-                      </Link>
-
-                      {isActive && (
-                        <motion.span
-                          layoutId="activeDotMobile"
-                          className="w-2 h-2 bg-[#FF4C00] rounded-full"
-                        />
-                      )}
-                    </li>
-                  );
-                })}
-                <li className="pt-4">
-                  <a
-                    href="mailto:arby.jegede@gmail.com"
-                    className="text-[#FF4C00] font-bold text-xl"
-                    onClick={toggleMenu}
-                  >
-                    Contact me
-                  </a>
-                </li>
-              </ul>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </motion.header>
   );
 };
 
-export default Header;
+function UsersIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" stroke="currentColor" strokeWidth="1.5">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+    </svg>
+  );
+} 
