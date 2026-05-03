@@ -105,7 +105,7 @@ export default function Page() {
         tags: ["Product Design", "Strategy"],
         title: "Enterprise Dashboard Platform",
         description:
-          "Redesigned a complex analytics dashboard used by 50K+ users, improving task completion rates by 40% through strategic UX restructuring.",
+          "Redesigned a complex analytics dashboard used by 50K+ users, improving task completion rates by over 40% through strategic UX restructuring.",
         icon: <ChartNoAxesCombined className="h-7 w-7" />,
       },
       {
