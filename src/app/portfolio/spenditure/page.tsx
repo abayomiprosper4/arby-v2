@@ -22,18 +22,18 @@ const SpenditurePage = () => {
   const problemRef = useRef<HTMLHeadingElement>(null);
   const goalRef = useRef<HTMLParagraphElement>(null);
   const quoteRef = useRef<HTMLHeadingElement>(null);
-            const [theme, setTheme] = useState<Theme>("dark");
-        
-          // 1. Theme Persistence Logic
-          useEffect(() => {
-            const savedTheme =
-              (localStorage.getItem("theme") as Theme | null) || "dark";
-            setTheme(savedTheme);
-          }, []);
-        
-          useEffect(() => {
-            localStorage.setItem("theme", theme);
-          }, [theme]);
+  const [theme, setTheme] = useState<Theme>("dark");
+
+  // 1. Theme Persistence Logic
+  useEffect(() => {
+    const savedTheme =
+      (localStorage.getItem("theme") as Theme | null) || "dark";
+    setTheme(savedTheme);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
   useEffect(() => {
     const tl = gsap.timeline({ delay: 3.8 });
     tl.to(titlePart1Ref.current, {
@@ -93,8 +93,7 @@ const SpenditurePage = () => {
         className="w-full h-[55vh] md:h-[85vh] flex items-end justify-center overflow-hidden relative px-4"
       >
         <div className="flex items-end justify-center gap-4 md:gap-14 translate-y-1 md:translate-y-2">
-          <div
-          >
+          <div>
             <img
               src="/assets/images/spenditure-3.png"
               alt="Transaction Detail"
@@ -102,9 +101,7 @@ const SpenditurePage = () => {
             />
           </div>
 
-          <div
-            className="z-10"
-          >
+          <div className="z-10">
             <img
               src="/assets/images/spenditure-2.png"
               alt="Main Dashboard"
@@ -112,8 +109,7 @@ const SpenditurePage = () => {
             />
           </div>
 
-          <div
-          >
+          <div>
             <img
               src="/assets/images/spenditure-1.png"
               alt="Add Bill Screen"
@@ -614,12 +610,12 @@ const SpenditurePage = () => {
                 "f-s-2.png",
                 "f-s-3.png",
                 "f-s-4.png",
-                "insights-1.png",                                                                                                                    
+                "insights-1.png",
                 "f-s-6.png",
                 "f-s-7.png",
                 "f-s-8.png",
                 "f-s-9.png",
-                "f-s-10.png", 
+                "f-s-10.png",
               ].map((imgSrc, index) => (
                 <motion.img
                   key={index}

@@ -22,18 +22,18 @@ const NithubFormsPage = () => {
   const challengeRef = useRef<HTMLHeadingElement>(null);
   const approachRef = useRef<HTMLParagraphElement>(null);
   const quoteRef = useRef<HTMLHeadingElement>(null);
-              const [theme, setTheme] = useState<Theme>("dark");
-          
-            // 1. Theme Persistence Logic
-            useEffect(() => {
-              const savedTheme =
-                (localStorage.getItem("theme") as Theme | null) || "dark";
-              setTheme(savedTheme);
-            }, []);
-          
-            useEffect(() => {
-              localStorage.setItem("theme", theme);
-            }, [theme]);
+  const [theme, setTheme] = useState<Theme>("dark");
+
+  // 1. Theme Persistence Logic
+  useEffect(() => {
+    const savedTheme =
+      (localStorage.getItem("theme") as Theme | null) || "dark";
+    setTheme(savedTheme);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 3.8 });
@@ -614,7 +614,9 @@ const NithubFormsPage = () => {
                   alt="Nithub Forms Workflow"
                   className="w-5/6 mx-auto rounded-md object-cover"
                 />
-                <p className="text-center font-semibold text-sm">Nithub Forms Workflow</p>
+                <p className="text-center font-semibold text-sm">
+                  Nithub Forms Workflow
+                </p>
               </motion.div>
 
               <motion.div
@@ -628,7 +630,9 @@ const NithubFormsPage = () => {
                   alt="Form Lifecycle Management"
                   className="w-5/6 mx-auto rounded-md object-cover"
                 />
-                <p className="text-center font-semibold text-sm">Form Life Cycle</p>
+                <p className="text-center font-semibold text-sm">
+                  Form Life Cycle
+                </p>
               </motion.div>
             </div>
           </section>

@@ -20,18 +20,18 @@ const TransturaPage = () => {
   const trustRef = useRef<HTMLHeadingElement>(null);
   const insightRef = useRef<HTMLHeadingElement>(null);
   const reflectionRef = useRef<HTMLHeadingElement>(null);
-            const [theme, setTheme] = useState<Theme>("dark");
-        
-          // 1. Theme Persistence Logic
-          useEffect(() => {
-            const savedTheme =
-              (localStorage.getItem("theme") as Theme | null) || "dark";
-            setTheme(savedTheme);
-          }, []);
-        
-          useEffect(() => {
-            localStorage.setItem("theme", theme);
-          }, [theme]);
+  const [theme, setTheme] = useState<Theme>("dark");
+
+  // 1. Theme Persistence Logic
+  useEffect(() => {
+    const savedTheme =
+      (localStorage.getItem("theme") as Theme | null) || "dark";
+    setTheme(savedTheme);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 3.8 });
@@ -42,7 +42,7 @@ const TransturaPage = () => {
     }).to(
       titlePart2Ref.current,
       { text: "Through System Feedback", duration: 1, ease: "none" },
-      "+=0.5"
+      "+=0.5",
     );
 
     gsap.to(trustRef.current, {
@@ -92,10 +92,7 @@ const TransturaPage = () => {
         className="w-full h-[55vh] md:h-[85vh] flex items-end justify-center overflow-hidden relative px-4"
       >
         <div className="flex items-end justify-center gap-4 md:gap-14 translate-y-1 md:translate-y-2">
-          <motion.div
-            initial={{ y: "100vh" }}
-            animate={{ y: 0 }}
-          >
+          <motion.div initial={{ y: "100vh" }} animate={{ y: 0 }}>
             <img
               src="/assets/images/transtura-mock-1.png"
               alt="Transtura Home"
@@ -115,10 +112,7 @@ const TransturaPage = () => {
             />
           </motion.div>
 
-          <motion.div
-            initial={{ y: "100vh" }}
-            animate={{ y: 0 }}
-          >
+          <motion.div initial={{ y: "100vh" }} animate={{ y: 0 }}>
             <img
               src="/assets/images/transtura-mock-3.png"
               alt="Transtura Ride"
@@ -151,7 +145,11 @@ const TransturaPage = () => {
           className="mx-auto max-w-6xl px-4 xl:px-0 mb-32"
         >
           <p className="text-gray-600 text-lg leading-relaxed max-w-4xl font-medium">
-            Transportation, Mobility | Product Designer | <span className="font-bold text-gray-900">Redefined the booking experience by reducing uncertainty and improving the system feedback</span>
+            Transportation, Mobility | Product Designer |{" "}
+            <span className="font-bold text-gray-900">
+              Redefined the booking experience by reducing uncertainty and
+              improving the system feedback
+            </span>
           </p>
         </motion.div>
 
@@ -163,12 +161,20 @@ const TransturaPage = () => {
             transition={bounceTransition}
             className="max-w-6xl mx-auto px-4 xl:px-0"
           >
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Project Context</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+              Project Context
+            </h2>
             <p className="text-gray-600 text-xl leading-relaxed mb-6">
-              Transtura is a mobility platform designed to connect riders with drivers through a shared ride system. The platform aims to provide flexible and accessible transportation, particularly in environments where reliability and responsiveness directly impact user trust.
+              Transtura is a mobility platform designed to connect riders with
+              drivers through a shared ride system. The platform aims to provide
+              flexible and accessible transportation, particularly in
+              environments where reliability and responsiveness directly impact
+              user trust.
             </p>
             <p className="text-gray-900 text-xl font-bold leading-relaxed">
-              This project focused on redesigning the ride booking experience to eliminate uncertainty and improve how the system communicates with users during critical moments.
+              This project focused on redesigning the ride booking experience to
+              eliminate uncertainty and improve how the system communicates with
+              users during critical moments.
             </p>
           </motion.section>
 
@@ -179,10 +185,15 @@ const TransturaPage = () => {
             transition={bounceTransition}
             className="max-w-6xl mx-auto px-4 xl:px-0"
           >
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Project Overview</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+              Project Overview
+            </h2>
             <p className="text-gray-600 text-xl leading-relaxed mb-6">
               In mobility products, trust is built through feedback. <br />
-              When users request a ride, they expect immediate clarity about what is happening. Any delay or lack of communication creates doubt and in high-dependency scenarios like transportation, doubt quickly leads to abandonment.
+              When users request a ride, they expect immediate clarity about
+              what is happening. Any delay or lack of communication creates
+              doubt and in high-dependency scenarios like transportation, doubt
+              quickly leads to abandonment.
             </p>
             <h3
               className="text-2xl font-bold text-gray-900 min-h-[1.5em]"
@@ -197,9 +208,13 @@ const TransturaPage = () => {
             transition={bounceTransition}
             className="max-w-6xl mx-auto px-4 xl:px-0"
           >
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Research & Validation</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+              Research & Validation
+            </h2>
             <p className="text-gray-900 text-xl font-bold leading-relaxed mb-10">
-              Initial insights were gathered from user reviews on the Play Store, where recurring complaints highlighted frustration around unclear ride status and lack of feedback.
+              Initial insights were gathered from user reviews on the Play
+              Store, where recurring complaints highlighted frustration around
+              unclear ride status and lack of feedback.
             </p>
             <div className="w-full mb-10">
               <img
@@ -209,7 +224,8 @@ const TransturaPage = () => {
               />
             </div>
             <p className="text-gray-600 text-xl leading-relaxed mb-10">
-              To validate these findings, I engaged with the Transtura team to understand the intended system behaviour and constraints.
+              To validate these findings, I engaged with the Transtura team to
+              understand the intended system behaviour and constraints.
             </p>
             <div className="w-full">
               <img
@@ -227,7 +243,9 @@ const TransturaPage = () => {
             transition={bounceTransition}
             className="max-w-6xl mx-auto px-4 xl:px-0"
           >
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Key Insights</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+              Key Insights
+            </h2>
             <p className="text-gray-600 text-xl leading-relaxed mb-6">
               The system was not failing it was invisible.
             </p>
@@ -243,12 +261,17 @@ const TransturaPage = () => {
             transition={bounceTransition}
             className="max-w-6xl mx-auto px-4 xl:px-0"
           >
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Design Approach</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+              Design Approach
+            </h2>
             <p className="text-gray-600 text-xl leading-relaxed mb-6">
-              The project evolved from addressing a single usability issue into a broader redesign of the booking experience.
+              The project evolved from addressing a single usability issue into
+              a broader redesign of the booking experience.
             </p>
             <p className="text-gray-600 text-xl leading-relaxed">
-              Rather than improving isolated screens, the focus shifted to redefining the booking flow as a system, ensuring that every stage communicates progress and intent.
+              Rather than improving isolated screens, the focus shifted to
+              redefining the booking flow as a system, ensuring that every stage
+              communicates progress and intent.
             </p>
           </motion.section>
 
@@ -259,12 +282,15 @@ const TransturaPage = () => {
             transition={bounceTransition}
             className="max-w-6xl mx-auto px-4 xl:px-0"
           >
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Redesign Scope</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+              Redesign Scope
+            </h2>
             <p className="text-gray-600 text-xl leading-relaxed mb-10">
               The redesign focused on three critical areas:
             </p>
             <p className="text-2xl font-bold text-gray-900">
-              This ensured the solution addressed the entire experience, not just a single interaction.
+              This ensured the solution addressed the entire experience, not
+              just a single interaction.
             </p>
           </motion.section>
 
@@ -276,9 +302,12 @@ const TransturaPage = () => {
             className="max-w-6xl mx-auto px-4 xl:px-0 flex flex-col items-center"
           >
             <div className="w-full text-left mb-10">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Understanding the Existing Experience</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+                Understanding the Existing Experience
+              </h2>
               <p className="text-gray-600 text-xl leading-relaxed">
-                The project evolved from addressing a single usability issue into a broader redesign of the booking experience.
+                The project evolved from addressing a single usability issue
+                into a broader redesign of the booking experience.
               </p>
             </div>
             <img
@@ -295,9 +324,12 @@ const TransturaPage = () => {
             transition={bounceTransition}
             className="max-w-6xl mx-auto px-4 xl:px-0"
           >
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Reframing the Booking Experience</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+              Reframing the Booking Experience
+            </h2>
             <p className="text-gray-600 text-xl leading-relaxed mb-10">
-              A new flow was introduced to eliminate uncertainty and guide users through the process.
+              A new flow was introduced to eliminate uncertainty and guide users
+              through the process.
             </p>
             <div className="w-full flex justify-center mb-16">
               <img
@@ -306,11 +338,11 @@ const TransturaPage = () => {
                 className="w-full max-w-4xl object-contain rounded-2xl shadow-lg"
               />
             </div>
-            
+
             <p className="text-gray-600 text-xl leading-relaxed mb-8">
               The updated experience ensures that users always know:
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               <div className="bg-[#FFF9D6] text-gray-900 font-medium py-4 px-6 rounded-md shadow-sm border border-[#FDE047]">
                 When the system is processing their request
@@ -324,7 +356,8 @@ const TransturaPage = () => {
             </div>
 
             <p className="text-gray-900 text-xl leading-relaxed">
-              This transforms the experience from passive waiting into guided interaction.
+              This transforms the experience from passive waiting into guided
+              interaction.
             </p>
           </motion.section>
 
@@ -335,9 +368,12 @@ const TransturaPage = () => {
             transition={bounceTransition}
             className="max-w-6xl mx-auto px-4 xl:px-0"
           >
-            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Exploration</h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+              Exploration
+            </h2>
             <p className="text-gray-600 text-xl leading-relaxed mb-10">
-              Early ideas were explored through sketches to quickly test different approaches to structuring the experience.
+              Early ideas were explored through sketches to quickly test
+              different approaches to structuring the experience.
             </p>
             <div className="w-full mb-10">
               <img
@@ -347,7 +383,8 @@ const TransturaPage = () => {
               />
             </div>
             <p className="text-gray-900 text-xl leading-relaxed font-medium">
-              These explorations focused on simplifying decisions and making system actions more visible.
+              These explorations focused on simplifying decisions and making
+              system actions more visible.
             </p>
           </motion.section>
 
@@ -359,9 +396,12 @@ const TransturaPage = () => {
             className="max-w-6xl mx-auto px-4 xl:px-0 flex flex-col items-center"
           >
             <div className="w-full text-left mb-10">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Structuring the Experience</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+                Structuring the Experience
+              </h2>
               <p className="text-gray-600 text-xl leading-relaxed">
-                The direction was refined through wireframes, defining layout, hierarchy, and interaction flow.
+                The direction was refined through wireframes, defining layout,
+                hierarchy, and interaction flow.
               </p>
             </div>
             <img
@@ -371,7 +411,8 @@ const TransturaPage = () => {
             />
             <div className="w-full text-left">
               <p className="text-gray-600 text-xl leading-relaxed">
-                At this stage, clarity was prioritised over visual detail to ensure the experience remained intuitive.
+                At this stage, clarity was prioritised over visual detail to
+                ensure the experience remained intuitive.
               </p>
             </div>
           </motion.section>
@@ -383,9 +424,12 @@ const TransturaPage = () => {
             className="max-w-6xl mx-auto px-4 xl:px-0 flex flex-col items-center"
           >
             <div className="w-full text-left mb-10">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Visual Direction</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+                Visual Direction
+              </h2>
               <p className="text-gray-600 text-xl leading-relaxed">
-                A consistent visual system was applied to support usability and reinforce clarity.
+                A consistent visual system was applied to support usability and
+                reinforce clarity.
               </p>
             </div>
             <img
@@ -395,7 +439,8 @@ const TransturaPage = () => {
             />
             <div className="w-full text-left">
               <p className="text-gray-600 text-xl leading-relaxed">
-                The interface uses clear hierarchy and minimal visual noise to keep users focused on key actions and system feedback.
+                The interface uses clear hierarchy and minimal visual noise to
+                keep users focused on key actions and system feedback.
               </p>
             </div>
           </motion.section>
@@ -407,9 +452,12 @@ const TransturaPage = () => {
             className="max-w-full mx-auto"
           >
             <div className="max-w-6xl mx-auto px-4 xl:px-0 mb-10">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Designing the Booking Flow</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+                Designing the Booking Flow
+              </h2>
               <p className="text-gray-600 text-xl leading-relaxed">
-                The redesigned booking experience introduces continuous feedback at critical moments.
+                The redesigned booking experience introduces continuous feedback
+                at critical moments.
               </p>
             </div>
             <div className="w-full bg-[#fed800] py-16 px-4 flex justify-center mb-10">
@@ -421,7 +469,9 @@ const TransturaPage = () => {
             </div>
             <div className="max-w-6xl mx-auto px-4 xl:px-0">
               <p className="text-gray-900 text-xl leading-relaxed">
-                After requesting a ride, users can now see that the system is actively searching for drivers, reducing uncertainty and reinforcing that the process is ongoing.
+                After requesting a ride, users can now see that the system is
+                actively searching for drivers, reducing uncertainty and
+                reinforcing that the process is ongoing.
               </p>
             </div>
           </motion.section>
@@ -433,29 +483,37 @@ const TransturaPage = () => {
             className="max-w-6xl mx-auto px-4 xl:px-0 flex flex-col items-center"
           >
             <div className="w-full text-left mb-16">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Improving Ride Selection</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+                Improving Ride Selection
+              </h2>
               <p className="text-gray-600 text-xl leading-relaxed">
-                The ride selection experience was redesigned to make options clearer and easier to compare.
+                The ride selection experience was redesigned to make options
+                clearer and easier to compare.
               </p>
             </div>
-            
+
             <img
               src="/assets/images/old.png"
               alt="Old Design Screens"
               className="w-full max-w-3xl object-contain mb-6"
             />
-            <h3 className="text-2xl font-bold text-gray-900 mb-16">Old design</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-16">
+              Old design
+            </h3>
 
             <img
               src="/assets/images/new.png"
               alt="New Design Screens"
               className="w-full max-w-3xl object-contain mb-6"
             />
-            <h3 className="text-2xl font-bold text-gray-900 mb-10">New Design</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-10">
+              New Design
+            </h3>
 
             <div className="w-full text-left">
               <p className="text-gray-600 text-xl leading-relaxed">
-                Users can now make more informed decisions before confirming a ride, reducing friction earlier in the journey.
+                Users can now make more informed decisions before confirming a
+                ride, reducing friction earlier in the journey.
               </p>
             </div>
           </motion.section>
@@ -467,12 +525,15 @@ const TransturaPage = () => {
             className="max-w-6xl mx-auto px-4 xl:px-0 flex flex-col items-center"
           >
             <div className="w-full text-left mb-16">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Enhancing Trip Visibility</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+                Enhancing Trip Visibility
+              </h2>
               <p className="text-gray-600 text-xl leading-relaxed">
-                Trip management was improved to give users clearer insight into their activity.
+                Trip management was improved to give users clearer insight into
+                their activity.
               </p>
             </div>
-            
+
             <img
               src="/assets/images/visibility.png"
               alt="Trip Visibility Screens"
@@ -481,7 +542,8 @@ const TransturaPage = () => {
 
             <div className="w-full text-left">
               <p className="text-gray-600 text-xl leading-relaxed">
-                By clearly separating upcoming and past trips, the experience becomes easier to navigate and understand.
+                By clearly separating upcoming and past trips, the experience
+                becomes easier to navigate and understand.
               </p>
             </div>
           </motion.section>
@@ -494,12 +556,15 @@ const TransturaPage = () => {
             className="max-w-6xl mx-auto px-4 xl:px-0 flex flex-col items-center"
           >
             <div className="w-full text-left mb-16">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">System-Level Thinking</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
+                System-Level Thinking
+              </h2>
               <p className="text-gray-600 text-xl leading-relaxed">
-                The final design introduces a feedback system that spans the entire booking journey.
+                The final design introduces a feedback system that spans the
+                entire booking journey.
               </p>
             </div>
-            
+
             <img
               src="/assets/images/final.png"
               alt="System Level Thinking Screens"
@@ -508,7 +573,9 @@ const TransturaPage = () => {
 
             <div className="w-full text-left">
               <p className="text-gray-900 font-medium text-xl leading-relaxed">
-                Each stage communicates progress, ensuring users are never left guessing. The experience works as a cohesive system rather than disconnected screens.
+                Each stage communicates progress, ensuring users are never left
+                guessing. The experience works as a cohesive system rather than
+                disconnected screens.
               </p>
             </div>
           </motion.section>
@@ -520,9 +587,16 @@ const TransturaPage = () => {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={bounceTransition}
               >
-                <h2 className="text-2xl font-bold mb-4 text-gray-900">Outcome</h2>
+                <h2 className="text-2xl font-bold mb-4 text-gray-900">
+                  Outcome
+                </h2>
                 <p className="text-gray-600 text-xl leading-relaxed">
-                  This project demonstrates how redesigning a booking experience as a system rather than a sequence of screens can significantly improve user trust in mobility platforms. Although not implemented, the concept highlights how better communication of system state can transform perceived reliability.
+                  This project demonstrates how redesigning a booking experience
+                  as a system rather than a sequence of screens can
+                  significantly improve user trust in mobility platforms.
+                  Although not implemented, the concept highlights how better
+                  communication of system state can transform perceived
+                  reliability.
                 </p>
               </motion.section>
 
@@ -532,16 +606,23 @@ const TransturaPage = () => {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ ...bounceTransition, delay: 0.2 }}
               >
-                <h2 className="text-2xl font-bold mb-4 text-gray-900">Reflection</h2>
+                <h2 className="text-2xl font-bold mb-4 text-gray-900">
+                  Reflection
+                </h2>
                 <p className="text-gray-600 text-xl leading-relaxed mb-6">
-                  This project reinforced a critical principle in mobility design:
+                  This project reinforced a critical principle in mobility
+                  design:
                 </p>
                 <h3
                   className="text-2xl font-bold text-gray-900 min-h-[1.5em] mb-6"
                   ref={reflectionRef}
                 ></h3>
                 <p className="text-gray-600 text-xl leading-relaxed">
-                  By making system activity visible and guiding users through each stage of the booking process, the experience shifts from confusion to clarity. Design, in this context, is not just about usability, it is about making systems feel reliable, predictable, and trustworthy.
+                  By making system activity visible and guiding users through
+                  each stage of the booking process, the experience shifts from
+                  confusion to clarity. Design, in this context, is not just
+                  about usability, it is about making systems feel reliable,
+                  predictable, and trustworthy.
                 </p>
               </motion.section>
             </div>

@@ -1,4 +1,3 @@
-
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -15,21 +14,21 @@ import uxResearchPaperImg from "../../../public/assets/images/ux-research-paper.
 type Theme = "dark" | "light";
 
 const ProductDesignPage = () => {
-        const [theme, setTheme] = useState<Theme>("dark");
-    
-      // 1. Theme Persistence Logic
-      useEffect(() => {
-        const savedTheme =
-          (localStorage.getItem("theme") as Theme | null) || "dark";
-        setTheme(savedTheme);
-      }, []);
-    
-      useEffect(() => {
-  localStorage.setItem("theme", theme);
-    }, [theme]);
+  const [theme, setTheme] = useState<Theme>("dark");
+
+  // 1. Theme Persistence Logic
+  useEffect(() => {
+    const savedTheme =
+      (localStorage.getItem("theme") as Theme | null) || "dark";
+    setTheme(savedTheme);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
   return (
     <div className="pt-8 mx-[5%]">
-          <Header theme={theme} setTheme={setTheme} />
+      <Header theme={theme} setTheme={setTheme} />
 
       <div className="mt-8 mb-24">
         <Introduction theme={theme} />

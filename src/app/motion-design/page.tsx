@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 
 import Header from "@/components/Header";
@@ -11,20 +10,21 @@ import countdownTimerImg from "../../../public/assets/images/countdown-timer.png
 import textAnimationImg from "../../../public/assets/images/text-animation.png";
 
 import driveIcon from "../../../public/assets/icons/drive.svg";
+
 type Theme = "dark" | "light";
 const MotionDesignPage = () => {
-              const [theme, setTheme] = useState<Theme>("dark");
-          
-            // 1. Theme Persistence Logic
-            useEffect(() => {
-              const savedTheme =
-                (localStorage.getItem("theme") as Theme | null) || "dark";
-              setTheme(savedTheme);
-            }, []);
-          
-            useEffect(() => {
-              localStorage.setItem("theme", theme);
-            }, [theme]);
+  const [theme, setTheme] = useState<Theme>("dark");
+
+  // 1. Theme Persistence Logic
+  useEffect(() => {
+    const savedTheme =
+      (localStorage.getItem("theme") as Theme | null) || "dark";
+    setTheme(savedTheme);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
   return (
     <div className="pt-8 mx-[5%]">
       <Header theme={theme} setTheme={setTheme} />
