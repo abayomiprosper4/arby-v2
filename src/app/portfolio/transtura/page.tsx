@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Socials from "@/components/Socials";
 import BackToTopBtn from "@/components/BacktoTopBtn";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,13 +13,25 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 if (typeof window !== "undefined") {
   gsap.registerPlugin(TextPlugin, ScrollTrigger);
 }
-
+type Theme = "dark" | "light";
 const TransturaPage = () => {
   const titlePart1Ref = useRef<HTMLSpanElement>(null);
   const titlePart2Ref = useRef<HTMLSpanElement>(null);
   const trustRef = useRef<HTMLHeadingElement>(null);
   const insightRef = useRef<HTMLHeadingElement>(null);
   const reflectionRef = useRef<HTMLHeadingElement>(null);
+            const [theme, setTheme] = useState<Theme>("dark");
+        
+          // 1. Theme Persistence Logic
+          useEffect(() => {
+            const savedTheme =
+              (localStorage.getItem("theme") as Theme | null) || "dark";
+            setTheme(savedTheme);
+          }, []);
+        
+          useEffect(() => {
+            localStorage.setItem("theme", theme);
+          }, [theme]);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 3.8 });
@@ -72,7 +84,7 @@ const TransturaPage = () => {
 
   return (
     <div className="bg-white pt-24 text-[#1a1a1a] min-h-screen">
-      <Header />
+      <Header theme={theme} setTheme={setTheme} />
       <motion.section
         initial={{ backgroundColor: "#ffffff" }}
         animate={{ backgroundColor: "#FACC15" }} // Transtura Yellow
