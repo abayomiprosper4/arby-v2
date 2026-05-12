@@ -156,17 +156,7 @@ export default function PortfolioPage() {
           Product designer with <span>5+ years</span> of experience crafting
           experiences, guiding teams, and building systems that work.
         </h1>
-        {/* <div className="text-gray-500 flex flex-col items-end space-y-3 text-right md:hidden lg:block shrink-0 pt-4">
-          <Link href="/portfolio" className="cursor-pointer block hover:text-white transition-colors text-lg">
-            Product Design
-          </Link>
-          <Link href="/working" className="block hover:text-white transition-colors cursor-pointer text-lg">
-            Facilitation
-          </Link>
-          <Link href="/working" className="block hover:text-white transition-colors cursor-pointer text-lg">
-            Motion Design
-          </Link>
-        </div> */}
+
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-16 gap-8 mb-32">
