@@ -72,7 +72,6 @@ const Works = ({ theme }: WorksProps) => {
     },
   ];
 
-  // ... (Keep your existing useEffects for the IntersectionObserver)
 
   return (
     <section id="work" className="px-6 py-24">
