@@ -4,7 +4,6 @@ import Header from "@/components/Header";
 import Introduction from "@/components/Introduction";
 import Image from "next/image";
 import Socials from "@/components/Socials";
-import BackToTopBtn from "./components/BacktoTopBtn";
 import { useEffect, useMemo, useState, useRef } from "react";
 import {
   ArrowRight,
@@ -323,7 +322,6 @@ export default function Page() {
         {/* Contact CTA */}
         <CTA theme={theme} />
         <Socials />
-        <BackToTopBtn />
       </main>
     </div>
   );
