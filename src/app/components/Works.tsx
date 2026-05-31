@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import PasswordProtectedModal from "./PasswordProtectedModal";
+// import PasswordProtectedModal from "./PasswordProtectedModal";
 import ComingSoon from "./ComingSoon";
 
 type Theme = "dark" | "light";
@@ -164,13 +164,13 @@ const Works = ({ theme }: WorksProps) => {
         </div>
       </div>
       
-      <PasswordProtectedModal
+      {/* <PasswordProtectedModal
         isOpen={passwordModalOpen}
         onClose={() => setPasswordModalOpen(false)}
         projectTitle={selectedProject?.title || ""}
         projectImage={selectedProject?.image || ""}
         projectHref={selectedProject?.href || ""}
-      />
+      /> */}
 
       <ComingSoon
         isOpen={comingSoonModalOpen}
