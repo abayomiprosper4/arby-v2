@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import PasswordProtectedModal from "./PasswordProtectedModal";
 import ComingSoon from "./ComingSoon";
 
 type Theme = "dark" | "light";
@@ -47,7 +48,6 @@ const Works = ({ theme }: WorksProps) => {
       title: "Nithub Website",
       types: ["Product Design", "Ecosystem Platform"],
       description: (
-        
         <>
           Redesigned NITHUB's digital ecosystem contributing to Linkedin growth
           from{" "}
@@ -162,6 +162,14 @@ const Works = ({ theme }: WorksProps) => {
           ))}
         </div>
       </div>
+      
+      <PasswordProtectedModal
+        isOpen={passwordModalOpen}
+        onClose={() => setPasswordModalOpen(false)}
+        projectTitle={selectedProject?.title || ""}
+        projectImage={selectedProject?.image || ""}
+        projectHref={selectedProject?.href || ""}
+      />
 
       <ComingSoon
         isOpen={comingSoonModalOpen}
@@ -177,7 +185,6 @@ const Works = ({ theme }: WorksProps) => {
 const ProjectCard = ({
   project,
   onClick,
-  theme,
   isDark,
   cardBg,
 }: {

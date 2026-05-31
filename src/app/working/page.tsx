@@ -6,21 +6,21 @@ import { motion } from "framer-motion";
 type Theme = "dark" | "light";
 export default function ManagementPage() {
     const [theme, setTheme] = useState<Theme>("dark");
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  // 1. Theme Persistence Logic
-  useEffect(() => {
-    const savedTheme =
-      (localStorage.getItem("theme") as Theme | null) || "dark";
-    setTheme(savedTheme);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    const [mobileOpen, setMobileOpen] = useState(false);
+  
+    // 1. Theme Persistence Logic
+    useEffect(() => {
+      const savedTheme =
+        (localStorage.getItem("theme") as Theme | null) || "dark";
+      setTheme(savedTheme);
+    }, []);
+  
+    useEffect(() => {
+      localStorage.setItem("theme", theme);
+    }, [theme]);
   return (
     <main className="mx-auto py-8 w-[90%]">
-          <Header theme={theme} setTheme={setTheme} />
+  <Header theme={theme} setTheme={setTheme} />
     <div className="flex flex-col h-[70vh] items-center justify-center text-center">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
