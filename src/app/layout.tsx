@@ -4,7 +4,7 @@ import CustomCursor from "../../Components/ui/CustomCursor";
 import "@/globals.css";
 
 export const metadata: Metadata = {
-  title: "Arby",
+  title: "AbisolaJegede",
   description: "Portfolio",
 };
 
